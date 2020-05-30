@@ -1,0 +1,60 @@
+# 数据库设计
+
+## table_average.md（课程平均分表）
+
+<table>
+    <tr>
+        <td>字段</td>
+        <td>类型</td>
+        <td>主键，外键</td>
+        <td>可以为空</td>
+        <td>默认值</td>
+        <td>约束</td>
+        <td>说明</td>
+    </tr>
+    <tr>
+        <td>average_id</td>
+        <td>int</td>
+        <td>主键</td>
+        <td>否</td>
+        <td></td>
+        <td>自动递增，无符号</td>
+        <td>平均分的id，为average表的主键。</td>
+    </tr>
+    <tr>
+        <td>lesson_id</td>
+        <td>int</td>
+        <td>外键</td>
+        <td>否</td>
+        <td></td>
+        <td>$lesson.lesson_id</td>
+        <td>平均分所属课程的id，为lesson表的外键。</td>
+    </tr>
+    <tr>
+        <td>student_id</td>
+        <td>varchar(50)</td>
+        <td>外键</td>
+        <td>否</td>
+        <td></td>
+        <td>$student.student_id</td>
+        <td>学生的学号，为student表的外键。</td>
+    </tr>
+    <tr>
+        <td>lesson_score</td>
+        <td>int</td>
+        <td></td>
+        <td>否</td>
+        <td></td>
+        <td>无符号，lesson_score <= 100</td>
+        <td>学生一个课程的平均成绩。</td>
+    </tr>
+    <tr>
+        <td>count_time</td>
+        <td>datetime</td>
+        <td></td>
+        <td>是</td>
+        <td>null</td>
+        <td></td>
+        <td>课程平均分的计算时间。</td>
+    </tr>
+</table>

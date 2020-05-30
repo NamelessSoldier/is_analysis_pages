@@ -1,0 +1,60 @@
+# 数据库设计
+
+## table_test.md（实验表）
+
+<table>
+    <tr>
+        <td>字段</td>
+        <td>类型</td>
+        <td>主键，外键</td>
+        <td>可以为空</td>
+        <td>默认值</td>
+        <td>约束</td>
+        <td>说明</td>
+    </tr>
+    <tr>
+        <td>test_id</td>
+        <td>int</td>
+        <td>主键</td>
+        <td>否</td>
+        <td></td>
+        <td>自动递增，无符号</td>
+        <td>实验的id，为test表的主键。</td>
+    </tr>
+    <tr>
+        <td>lesson_id</td>
+        <td>int</td>
+        <td>外键</td>
+        <td>否</td>
+        <td></td>
+        <td></td>
+        <td>课程的id，为lesson表的外键。</td>
+    </tr>
+    <tr>
+        <td>test_name</td>
+        <td>vachar(255)</td>
+        <td></td>
+        <td>否</td>
+        <td></td>
+        <td></td>
+        <td>实验的名称。</td>
+    </tr>
+    <tr>
+        <td>test_time</td>
+        <td>datetime</td>
+        <td></td>
+        <td>是</td>
+        <td>null</td>
+        <td>test_time >= $lesson.year</td>
+        <td>实验的开始时间。</td>
+    </tr>
+    <tr>
+        <td>set_time</td>
+        <td>datetime</td>
+        <td></td>
+        <td>是</td>
+        <td>null</td>
+        <td></td>
+        <td>实验的设置时间。</td>
+    </tr>
+</table>
