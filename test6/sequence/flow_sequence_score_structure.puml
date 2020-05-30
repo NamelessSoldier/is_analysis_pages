@@ -1,0 +1,49 @@
+@startuml
+
+title:“评阅结构分数”用例顺序图
+
+actor 教师
+actor 学生
+participant 课程
+participant 实验
+participant 结构分数
+
+activate 教师
+    教师->课程:获取课程列表
+    activate 课程
+        opt 暂无进行中课程
+            课程->教师:返回空
+        end opt
+        课程->教师:返回课程列表
+        教师->课程:选择课程
+
+        课程->学生:获取学生列表
+        activate 学生
+            opt 该课程暂无学生参加
+                学生->课程:返回空
+            end opt
+            学生->课程:返回学生列表
+            课程->学生:选择学生
+    deactivate 课程
+
+            loop 对每个学生
+                学生->实验:选择实验
+                activate 实验
+                    opt 学生未进行实验
+                        实验->学生:提示学生未进行实验
+                    end opt
+        deactivate 学生
+
+                    实验->结构分数:填写结构分数
+                    activate 结构分数
+                        opt 结构分数大于20或小于0
+                            结构分数->实验:结构分数必须在[0,20]之间
+                        end opt
+
+                        结构分数->教师:评阅结构分数成功
+                    deactivate 结构分数
+                deactivate 实验
+            end loop
+deactivate 教师
+
+@enduml

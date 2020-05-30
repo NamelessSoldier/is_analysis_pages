@@ -1,0 +1,52 @@
+@startuml
+
+title:“维护实验”用例顺序图
+
+actor 教师
+participant 课程
+participant 实验
+
+activate 教师
+    教师->课程:获取课程列表
+    activate 课程
+        opt 无进行中课程
+            课程->教师:返回空
+        end opt
+        课程->教师:返回课程列表
+        教师->课程:选择课程
+    deactivate 课程
+
+        教师->实验:增加实验
+        activate 实验
+            opt 实验信息不合法
+                实验->教师:增加实验失败
+            end opt
+            实验->教师:增加实验成功
+        deactivate 实验
+
+        教师->实验:删除实验
+        activate 实验
+            opt 课程暂无实验
+                实验->教师:无可删除实验
+            end opt
+            实验->教师:删除实验成功
+        deactivate 实验
+
+        教师->实验:查询实验
+        activate 实验
+            opt 课程暂无实验
+                实验->教师:返回空
+            end opt
+            实验->教师:返回实验列表
+        deactivate 实验
+
+        教师->实验:修改实验
+        activate 实验
+            opt 实验信息不合法
+                实验->教师:修改实验失败
+            end opt
+            实验->教师:修改实验成功
+        deactivate 实验
+deactivate 教师
+
+@enduml

@@ -1,0 +1,28 @@
+@startuml
+
+title:“查看成绩”用例顺序图
+
+actor 学生
+participant 课程
+participant 成绩
+participant 平均分
+
+activate 学生
+    学生->成绩:获取成绩
+    activate 成绩
+        成绩->课程:获取各课程成绩
+        activate 课程
+            opt 没有课程被老师评阅
+                课程->学生:返回空
+            end opt
+            课程->成绩:返回各课程成绩
+
+        deactivate 课程
+        成绩->平均分:计算平均分
+        activate 平均分
+            平均分->学生:返回各课程成绩及平均分
+        deactivate 平均分
+    deactivate 成绩
+deactivate 学生
+
+@enduml

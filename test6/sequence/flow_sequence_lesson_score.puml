@@ -1,0 +1,51 @@
+@startuml
+
+title:“计算课程平均成绩”用例顺序图
+
+actor 教师
+actor 学生
+participant 课程
+participant 实验
+participant 成绩
+participant 平均分
+
+activate 教师
+    教师->课程:获取课程列表
+    activate 课程
+        opt 暂无进行中课程
+            课程->教师:返回空
+        end opt
+        课程->教师:返回课程列表
+        教师->课程:选择课程
+
+        课程->学生:获取学生列表
+        activate 学生
+            opt 该课程暂无学生参加
+                学生->课程:返回空
+            end opt
+            学生->课程:返回学生列表
+            课程->学生:选择学生
+    deactivate 课程
+
+            loop 对每个学生
+                学生->实验:获取所有实验
+                activate 实验
+                    opt 学生未进行任何实验
+                        实验->教师:返回空
+                    end opt
+                    实验->成绩:获取所有实验成绩
+                        activate 成绩
+                            opt 教师未评阅行任何实验
+                                成绩->教师:返回空
+                            end opt
+                            成绩->平均分:计算平均分
+                            activate 平均分
+                                平均分->教师:返回平均分
+                            deactivate 平均分
+                        deactivate 成绩
+                deactivate 实验
+            end loop
+        deactivate 学生
+deactivate 教师
+
+@enduml

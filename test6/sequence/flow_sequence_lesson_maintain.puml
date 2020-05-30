@@ -1,0 +1,63 @@
+@startuml
+
+title:“维护课程”用例顺序图
+
+actor 教师
+participant 科目
+participant 课程
+participant 班级
+
+activate 教师
+    教师->科目:获取科目
+    activate 科目
+        opt 暂无科目列表
+            科目->教师:返回空
+        end opt
+        科目->教师:返回科目列表
+        教师->科目:选择科目
+        科目->课程:填写开课年份
+        activate 课程
+        deactivate 课程
+
+        科目->课程:填写开课学期
+        activate 课程
+        deactivate 课程
+    deactivate 科目
+
+    教师->课程:选择是由学生自主选课或直接设置上课班级
+    activate 课程
+        opt 由教师直接设置上课班级
+            课程->班级:获取班级列表
+            activate 班级
+                opt 该课程无法选择班级
+                    班级->课程:返回空
+                end opt
+                班级->课程:返回班级列表
+                课程->班级:选择班级
+            deactivate 班级
+        end opt
+
+        opt 排课信息不合法
+            课程->教师:设置课程失败
+        end opt
+        课程->教师:设置课程成功
+    deactivate 课程
+
+    教师->课程:删除课程
+    activate 课程
+        opt 课程为空
+            课程->教师:无可删除课程
+        end opt
+        课程->教师:删除课程成功
+    deactivate 课程
+
+    教师->课程:查询课程
+    activate 课程
+        opt 课程为空
+            课程->教师:返回空
+        end opt
+        课程->教师:返回课程列表
+    deactivate 课程
+deactivate 教师
+
+@enduml

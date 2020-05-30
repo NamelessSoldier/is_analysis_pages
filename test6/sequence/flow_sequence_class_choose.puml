@@ -1,0 +1,25 @@
+@startuml
+
+title:“选择上课班级”用例顺序图
+
+actor 教师
+participant 班级
+
+activate 教师
+    loop 对每门课程
+        教师->班级:获取班级
+        activate 班级
+            opt 该课程无法选择班级
+                班级->教师:返回空
+            end opt
+            班级->教师:返回班级列表
+        deactivate 班级
+
+        教师->班级:选择班级
+        activate 班级
+            班级->教师:选择班级成功
+        deactivate 班级
+    end loop
+deactivate 教师
+
+@enduml
